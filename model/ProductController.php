@@ -11,7 +11,19 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $this->sendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     }
-    public function GetProductIngredients($product)
+    public function CheckIngredient()
+    {
+    }
+    public function CheckProduct($product)
+    {
+    }
+    public function DeleteIngredient()
+    {
+    }
+    public function DeleteProduct($product)
+    {
+    }
+    public function GetArchiveIngredients($product)
     {
         $sql = "select i.name, pi2.ingredient_quantity, i.available_quantity, i.description
                 from product p
@@ -21,5 +33,11 @@ class ProductController extends BaseController
 
         $result = $this->conn->query($sql);
         $this->sendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+    }
+    public function SetIngredient()
+    {
+    }
+    public function SetProduct($product)
+    {
     }
 }
