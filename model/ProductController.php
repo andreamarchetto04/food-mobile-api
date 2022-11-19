@@ -9,7 +9,7 @@ class ProductController extends BaseController
                 order by p.ID;";
 
         $result = $this->conn->query($sql);
-        $this->sendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     }
     public function CheckIngredient()
     {
@@ -20,7 +20,7 @@ class ProductController extends BaseController
     public function DeleteIngredient()
     {
     }
-    public function DeleteProduct($product)
+    public function DeleteProduct($product_ID)
     {
     }
     public function GetArchiveIngredients($product_ID)
@@ -29,10 +29,11 @@ class ProductController extends BaseController
                 from product p
                 left join product_ingredient pi2 on p.ID = pi2.product_ID
                 left join ingredient i on i.ID = pi2.ingredient_ID
-                where p.ID = " . $product_ID . ";";
+                left join category c on c.ID = p.category_ID
+                where p.ID = " . $product_ID . " and c.name = 'panino' or c.name = 'piadina';";
 
         $result = $this->conn->query($sql);
-        $this->sendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     }
     public function SetIngredient()
     {
