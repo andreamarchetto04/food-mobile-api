@@ -23,13 +23,13 @@ class ProductController extends BaseController
     public function DeleteProduct($product)
     {
     }
-    public function GetArchiveIngredients($product)
+    public function GetArchiveIngredients($product_ID)
     {
         $sql = "select i.name, pi2.ingredient_quantity, i.available_quantity, i.description
                 from product p
                 left join product_ingredient pi2 on p.ID = pi2.product_ID
                 left join ingredient i on i.ID = pi2.ingredient_ID
-                where p.name = " . $product . ";";
+                where p.ID = " . $product_ID . ";";
 
         $result = $this->conn->query($sql);
         $this->sendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
