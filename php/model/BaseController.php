@@ -16,9 +16,15 @@ class BaseController
                 header($httpHeader);
             }
         }
+
+        $arr = array();
+        while($row = $data->fetch_assoc())
+        {
+            array_push($arr, $row);
+        }
         
         //print_r($data);
-        print_r(json_encode($data, JSON_PRETTY_PRINT));
+        print_r(json_encode($arr, JSON_PRETTY_PRINT));
         exit;
     }
 }
