@@ -1,5 +1,4 @@
 <?php
-
     // Properties
     define("DB_HOST", "localhost");
     define("DB_USERNAME", "root");
@@ -8,13 +7,9 @@
     define("DB_PASSWORD", "");
 
     //Connection
-    $connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME, DB_PORT);
-    echo var_dump($connection);
+    $conn = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME, DB_PORT);
+    //echo print_r($conn);
 
-    if($connection === false)
-    {
-        die("<script>console.log('Errore di connessione!')<script>");
-    }
-
-    echo "<script>console.log('Connessione avvenuta con successo!')</script>";
-    ?>
+    if ($conn->connect_error)
+        die("Connection failed: " . $conn->connect_error);
+?>
