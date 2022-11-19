@@ -14,13 +14,13 @@ class ProductController extends BaseController
     public function CheckIngredient()
     {
     }
-    public function CheckProduct($product)
+    public function CheckProduct()
     {
     }
     public function DeleteIngredient()
     {
     }
-    public function DeleteProduct($product_ID)
+    public function DeleteProduct()
     {
     }
     public function GetArchiveIngredients($product_ID)
@@ -38,7 +38,20 @@ class ProductController extends BaseController
     public function SetIngredient()
     {
     }
-    public function SetProduct($product)
+    public function SetProduct()
     {
+    }
+    public function AddIngredient()
+    {
+    }
+    public function AddProduct($product)
+    {
+        //insert into product(name, price, description, quantity, category_ID, nutritional_value_ID)
+        $sql = "insert into product(name, price, description, quantity, category_ID, nutritional_value_ID)
+                values
+                (" . $product["name"] . ", " . $product["price"] . ", " . $product["description"] . ", " . $product["quantity"] . ", " . $product["category_ID"] . ", " . $product["nutritional_value_ID"] . ");";
+
+        $result = $this->conn->query($sql);
+        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     }
 }
