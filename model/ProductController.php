@@ -31,6 +31,8 @@ class ProductController extends BaseController
     }
     public function DeleteIngredient($ingredient_ID)//Non mostra l'ingrediente finito di cui gli si passa l'id--in fase di progettazione
     {
+
+        //delete from ingredient WHERE  ID= '$ingredient_ID';---query per eliminare record ma non si può usare causa FOREIGN KEY
         $sql = "select distinct i.name as 'Nome ingrediente',i.available_quantity as 'Quantita disponibile'
                 from ingredient i
                 where i.ID<".$ingredient_ID." or i.ID>".$ingredient_ID.";";
