@@ -11,7 +11,8 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     }
-    public function CheckIngredient()//Mostro ingredienti disponibili e loro quantità
+    public function CheckIngredient() //Mostro ingredienti disponibili e loro quantità
+
     {
         $sql = "select distinct i.name as 'Nome ingrediente',i.available_quantity as 'Quantita disponibile'
                 from ingredient i
@@ -20,7 +21,8 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     }
-    public function CheckProduct()//Mostro prodotti disponibili e loro quantità
+    public function CheckProduct() //Mostro prodotti disponibili e loro quantità
+
     {
         $sql = "select distinct p.name as 'Nome prodotto',p.quantity as 'Quantita disponibile'
                 from product p
@@ -29,13 +31,14 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
     }
-    public function DeleteIngredient($ingredient_ID)//Non mostra l'ingrediente finito di cui gli si passa l'id--in fase di progettazione
+    public function DeleteIngredient($ingredient_ID) //Non mostra l'ingrediente finito di cui gli si passa l'id--in fase di progettazione
+
     {
 
         //delete from ingredient WHERE  ID= '$ingredient_ID';---query per eliminare record ma non si può usare causa FOREIGN KEY
         $sql = "select distinct i.name as 'Nome ingrediente',i.available_quantity as 'Quantita disponibile'
                 from ingredient i
-                where i.ID<".$ingredient_ID." or i.ID>".$ingredient_ID.";";
+                where i.ID<" . $ingredient_ID . " or i.ID>" . $ingredient_ID . ";";
 
         $result = $this->conn->query($sql);
         $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
@@ -65,7 +68,7 @@ class ProductController extends BaseController
     {
         $sql = "insert into ingredient(name, description, available_quantity)
         values
-        (".$ingredient["name"].",".$ingredient["description"].",".$ingredient["available_quantity"].")";
+        (" . $ingredient["name"] . "," . $ingredient["description"] . "," . $ingredient["available_quantity"] . ")";
 
         $result = $this->conn->query($sql);
         $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
