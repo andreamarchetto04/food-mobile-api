@@ -9,39 +9,39 @@ class ProductController extends BaseController
                 order by p.ID;";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, JSON_OK);
     }
     public function CheckIngredient() //Mostro ingredienti disponibili e loro quantità
 
     {
-        $sql = "select distinct i.name as 'Nome ingrediente',i.available_quantity as 'Quantita disponibile'
+        $sql = "select distinct i.name, i.available_quantity
                 from ingredient i
                 order by i.ID;";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, JSON_OK);
     }
     public function CheckProduct() //Mostro prodotti disponibili e loro quantità
 
     {
-        $sql = "select distinct p.name as 'Nome prodotto',p.quantity as 'Quantita disponibile'
+        $sql = "select distinct p.name, p.quantity
                 from product p
                 order by p.ID;";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, JSON_OK);
     }
     public function DeleteIngredient($ingredient_ID) //Non mostra l'ingrediente finito di cui gli si passa l'id--in fase di progettazione
 
     {
 
         //delete from ingredient WHERE  ID= '$ingredient_ID';---query per eliminare record ma non si può usare causa FOREIGN KEY
-        $sql = "select distinct i.name as 'Nome ingrediente',i.available_quantity as 'Quantita disponibile'
+        $sql = "select distinct i.name, i.available_quantity
                 from ingredient i
                 where i.ID<" . $ingredient_ID . " or i.ID>" . $ingredient_ID . ";";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, JSON_OK);
     }
     public function DeleteProduct()
     {
@@ -56,7 +56,7 @@ class ProductController extends BaseController
                 where p.ID = " . $product_ID . " and c.name = 'panino' or c.name = 'piadina';";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, JSON_OK);
     }
     public function SetIngredient()
     {
@@ -71,7 +71,7 @@ class ProductController extends BaseController
         (" . $ingredient["name"] . "," . $ingredient["description"] . "," . $ingredient["available_quantity"] . ")";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, JSON_OK);
     }
     public function AddProduct($product)
     {
@@ -81,6 +81,6 @@ class ProductController extends BaseController
                 (" . $product["name"] . ", " . $product["price"] . ", " . $product["description"] . ", " . $product["quantity"] . ", " . $product["category_ID"] . ", " . $product["nutritional_value_ID"] . ");";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+        $this->SendOutput($result, JSON_OK);
     }
 }

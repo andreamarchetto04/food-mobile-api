@@ -1,4 +1,13 @@
 <?php
+
+define(
+    'JSON_OK',
+    array(
+        'Content-Type: application/json',
+        'HTTP/1.1 200 OK'
+    )
+);
+
 class BaseController
 {
     public $conn;
