@@ -23,13 +23,16 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $this->SendOutput($result, JSON_OK);
     }
-    public function CheckProduct() //Mostro prodotti disponibili e loro quantità, non mostra quelli nascosti
+    public function CheckProduct() //Mostro prodotti disponibili e loro quantità
 
     {
-        $sql = "select distinct p.name, p.quantity
+        $sql = "select distinct p.name, p.quantity, nv.kcal
                 from product p
-                where p.active = 1
-                order by p.ID;";
+                left join nutritional_value nv on nv.ID= p.nutritional_value_ID;";
+
+        /*$sql = "select distinct p.name, p.quantity
+        from product p
+        order by p.ID;";*/
 
         $result = $this->conn->query($sql);
         $this->SendOutput($result, JSON_OK);
@@ -71,11 +74,23 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $this->SendOutput($result, JSON_OK);
     }
-    public function SetIngredient()
+    public function setIngredient($name, $description, $avariable_quantity)
     {
+        $sql = "insert into ingredient(name, description, available_quantity)
+        values
+        (" . $name . "," . $description . "," . $avariable_quantity . ");";
+
+        $result = $this->conn->query($sql);
+        $this->CheckIngredient();
     }
-    public function SetProduct()
+    public function setProduct($name, $price, $description, $quantity, $category_ID, $nutritional_value_ID)
     {
+        $sql = "insert into product(name, price, description, quantity, category_ID, nutritional_value_ID)
+                values
+                (" . $name . ", " . $price . ", " . $description . ", " . $quantity . ", " . $category_ID . ", " . $nutritional_value_ID . ");";
+
+        $result = $this->conn->query($sql);
+        $this->CheckProduct();
     }
     public function AddIngredient($ingredient)
     {
