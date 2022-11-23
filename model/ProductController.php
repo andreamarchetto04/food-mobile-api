@@ -56,6 +56,7 @@ class ProductController extends BaseController
                 where p.ID = " . $product_ID . ";";
 
         $result = $this->conn->query($sql);
+        $nRows = mysqli_affected_rows($this->conn); //ottiene il numero di righe cambiato dopo una query
         $this->SendState($result, JSON_OK);
     }
     public function GetArchiveIngredients($product_ID)
@@ -102,6 +103,7 @@ class ProductController extends BaseController
                 where p.ID = " . $product_ID . ";";
 
         $result = $this->conn->query($sql);
+        $nRows = mysqli_affected_rows($this->conn);
         $this->SendState($result, JSON_OK);
     }
 }
