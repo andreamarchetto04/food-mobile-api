@@ -2,7 +2,8 @@
 require("BaseController.php");
 class ProductController extends BaseController
 {
-    public function GetArchieveProduct()
+    public function GetArchieveProduct() //mostra tutti i prodotti
+
     {
         $sql = "select distinct p.ID, p.name, p.price
                 from product p
@@ -22,7 +23,7 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $this->SendOutput($result, JSON_OK);
     }
-    public function CheckProduct() //Mostro prodotti disponibili e loro quantità
+    public function CheckProduct() //Mostro prodotti disponibili e loro quantità, non mostra quelli nascosti
 
     {
         $sql = "select distinct p.name, p.quantity
@@ -43,7 +44,7 @@ class ProductController extends BaseController
         */
 
         $sql = "update ingredient i
-                set i.active=0
+                set i.active = 0
                 where i.ID=" . $ingredient_ID . ";";
         $result = $this->conn->query($sql);
         $this->CheckIngredient();
