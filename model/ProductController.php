@@ -55,7 +55,7 @@ class ProductController extends BaseController
                 where p.ID = " . $product_ID . ";";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, JSON_OK);
+        $this->SendState($result, JSON_OK);
     }
     public function GetArchiveIngredients($product_ID)
     {

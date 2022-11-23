@@ -42,6 +42,13 @@ class BaseController
         print_r(json_encode($err));
         exit;
     }
+    public function SendState($state, $headers = array())
+    {
+        $this->SetHeaders($headers);
+
+        print_r(json_encode($state));
+        exit;
+    }
     protected function SetHeaders($httpHeaders = array())
     {
         header_remove('Set-Cookie');
