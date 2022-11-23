@@ -98,10 +98,10 @@ class ProductController extends BaseController
     public function ReActiveProduct($product_ID)
     {
         $sql = "update product p
-                set p.active = 0
+                set p.active = 1
                 where p.ID = " . $product_ID . ";";
 
         $result = $this->conn->query($sql);
-        $this->SendOutput($result, JSON_OK);
+        $this->SendState($result, JSON_OK);
     }
 }
