@@ -16,6 +16,7 @@ class ProductController extends BaseController
     {
         $sql = "select distinct i.name, i.available_quantity
                 from ingredient i
+                where i.active=1
                 order by i.ID;";
 
         $result = $this->conn->query($sql);
@@ -34,15 +35,15 @@ class ProductController extends BaseController
     }
     public function DeleteIngredient($ingredient_ID) //Non mostra l'ingrediente finito di cui gli si passa l'id--in fase di progettazione
 
-    {
-
+    {       
         //delete from ingredient WHERE  ID= '$ingredient_ID';---query per eliminare record ma non si può usare causa FOREIGN KEY
-        $sql = "select distinct i.name, i.available_quantity
+        /*$sql = "select distinct i.name, i.available_quantity
                 from ingredient i
-                where i.ID<" . $ingredient_ID . " or i.ID>" . $ingredient_ID . ";";
-
-        $result = $this->conn->query($sql);
-        $this->SendOutput($result, JSON_OK);
+                where i.ID<" . $ingredient_ID . " or i.ID>" . $ingredient_ID . ";";*/
+        $sql="update ingredient i
+        set i.active=0
+        where i.ID=".$ingredient_ID.";";
+        $this->CheckIngredient();
     }
     public function DeleteProduct($product_ID)
     {
