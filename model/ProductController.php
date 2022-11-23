@@ -26,6 +26,7 @@ class ProductController extends BaseController
     {
         $sql = "select distinct p.name, p.quantity
                 from product p
+                where p.active = 1
                 order by p.ID;";
 
         $result = $this->conn->query($sql);
@@ -43,8 +44,14 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $this->SendOutput($result, JSON_OK);
     }
-    public function DeleteProduct()
+    public function DeleteProduct($product_ID)
     {
+        $sql = "update product p
+                set p.active = 0
+                where p.ID = " . $product_ID . ";";
+
+        $result = $this->conn->query($sql);
+        $this->SendOutput($result, JSON_OK);
     }
     public function GetArchiveIngredients($product_ID)
     {
@@ -79,6 +86,15 @@ class ProductController extends BaseController
         $sql = "insert into product(name, price, description, quantity, category_ID, nutritional_value_ID)
                 values
                 (" . $product["name"] . ", " . $product["price"] . ", " . $product["description"] . ", " . $product["quantity"] . ", " . $product["category_ID"] . ", " . $product["nutritional_value_ID"] . ");";
+
+        $result = $this->conn->query($sql);
+        $this->SendOutput($result, JSON_OK);
+    }
+    public function ReActiveProduct($product_ID)
+    {
+        $sql = "update product p
+                set p.active = 0
+                where p.ID = " . $product_ID . ";";
 
         $result = $this->conn->query($sql);
         $this->SendOutput($result, JSON_OK);
