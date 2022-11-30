@@ -8,7 +8,7 @@ if (isset($_GET["product"]))
 $controller = new ProductController($conn);
 
 if (strlen($product) > 2)
-    $controller->DeleteProduct($product);
+    $controller->GetArchiveProducts($product);
 else
     $controller->SendError(JSON_OK);
 ?>

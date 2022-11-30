@@ -2,7 +2,7 @@
 require("BaseController.php");
 class ProductController extends BaseController
 {
-    public function GetArchieveProduct() //mostra tutti i prodotti
+    public function GetArchiveProduct() //mostra tutti i prodotti
 
     {
         $sql = "select distinct p.ID, p.name, p.price
@@ -26,9 +26,15 @@ class ProductController extends BaseController
     public function CheckProduct() //Mostro prodotti disponibili e loro quantità
 
     {
-        $sql = "select distinct p.name, p.quantity, nv.kcal
+        /*$sql = "select distinct p.name, p.quantity, nv.kcal
                 from product p
-                left join nutritional_value nv on nv.ID= p.nutritional_value_ID;";
+                left join nutritional_value nv on nv.ID= p.nutritional_value_ID
+                where p.active = 1;";*/
+
+                $sql = "select distinct p.name, p.quantity, nv.kcal
+                from product p
+                left join nutritional_value nv on nv.ID= p.nutritional_value_ID
+                where p.active=1;";
 
         /*$sql = "select distinct p.name, p.quantity
         from product p
@@ -61,6 +67,8 @@ class ProductController extends BaseController
         $result = $this->conn->query($sql);
         $nRows = mysqli_affected_rows($this->conn); //ottiene il numero di righe cambiato dopo una query
         $this->SendState($result, JSON_OK);
+        $this->CheckProduct();
+        
     }
     public function GetArchiveIngredients($product_ID)
     {
